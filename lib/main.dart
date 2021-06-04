@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Iconly',
       theme: ThemeData(
           primaryColor: Color(0xffFFB240),
           cardTheme: CardTheme(
@@ -101,173 +101,177 @@ class _MyHomePageState extends State<MyHomePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image(
-                    image: AssetImage("assets/images/logo.png"),
-                    fit: BoxFit.contain,
-                    width: size.width * 0.2,
+                  const SizedBox(
+                    height: 50,
                   ),
-                  Chip(
-                    label: Text(
-                      "v2.3",
-                      style: TextStyle(color: Color(0xffFF646A)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/images/logo.png"),
+                        fit: BoxFit.contain,
+                        width: size.width * 0.2,
+                      ),
+                      Chip(
+                        label: Text(
+                          "v2.3",
+                          style: TextStyle(color: Color(0xffFF646A)),
+                        ),
+                        backgroundColor: Color(0xffFF646A0).withOpacity(0.2),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 3,
+                            spreadRadius: 1,
+                            offset: const Offset(0, 2),
+                          )
+                        ]),
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: onSearchChanged,
+                      decoration: InputDecoration(
+                          hintText: "Search...",
+                          prefixIcon: Icon(IconlyBroken.search),
+                          fillColor: Colors.white),
                     ),
-                    backgroundColor: Color(0xffFF646A0).withOpacity(0.2),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedStyle = 0;
+                            onSearchChanged(_searchController.text);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                IconlyLight.heart,
+                                color: selectedStyle == 0
+                                    ? Color(0xffFF646A)
+                                    : Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Light",
+                                style: TextStyle(
+                                  color: selectedStyle == 0
+                                      ? Color(0xffFF646A)
+                                      : Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedStyle = 1;
+                            onSearchChanged(_searchController.text);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                IconlyBold.heart,
+                                color: selectedStyle == 1
+                                    ? Color(0xffFF646A)
+                                    : Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Bold",
+                                style: TextStyle(
+                                  color: selectedStyle == 1
+                                      ? Color(0xffFF646A)
+                                      : Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedStyle = 2;
+                            onSearchChanged(_searchController.text);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                IconlyBroken.heart,
+                                color: selectedStyle == 2
+                                    ? Color(0xffFF646A)
+                                    : Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Broken",
+                                style: TextStyle(
+                                  color: selectedStyle == 2
+                                      ? Color(0xffFF646A)
+                                      : Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  GridView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: iconly.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150.0,
+                      crossAxisSpacing: 10.0,
+                      mainAxisSpacing: 10.0,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return CardIconly(iconlyData: iconly[index]);
+                    },
                   )
                 ],
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 3,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 2),
-                      )
-                    ]),
-                child: TextField(
-                  controller: _searchController,
-                  onChanged: onSearchChanged,
-                  decoration: InputDecoration(
-                      hintText: "Search...",
-                      prefixIcon: Icon(IconlyBroken.search),
-                      fillColor: Colors.white),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedStyle = 0;
-                        onSearchChanged(_searchController.text);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyLight.heart,
-                            color: selectedStyle == 0
-                                ? Color(0xffFF646A)
-                                : Colors.black,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Light",
-                            style: TextStyle(
-                              color: selectedStyle == 0
-                                  ? Color(0xffFF646A)
-                                  : Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedStyle = 1;
-                        onSearchChanged(_searchController.text);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBold.heart,
-                            color: selectedStyle == 1
-                                ? Color(0xffFF646A)
-                                : Colors.black,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Bold",
-                            style: TextStyle(
-                              color: selectedStyle == 1
-                                  ? Color(0xffFF646A)
-                                  : Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedStyle = 2;
-                        onSearchChanged(_searchController.text);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBroken.heart,
-                            color: selectedStyle == 2
-                                ? Color(0xffFF646A)
-                                : Colors.black,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Broken",
-                            style: TextStyle(
-                              color: selectedStyle == 2
-                                  ? Color(0xffFF646A)
-                                  : Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  itemCount: iconly.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 150.0,
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return CardIconly(iconlyData: iconly[index]);
-                  },
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
